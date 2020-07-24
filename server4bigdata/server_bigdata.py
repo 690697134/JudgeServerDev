@@ -14,7 +14,7 @@ from flask import Flask, request, Response
 from server4bigdata.compiler_bigdata import Compiler
 from server4bigdata.config_bigdata import (PROJECT_BASE, JUDGER_WORKSPACE_BASE, TEST_CASE_DIR, LOG_BASE, COMPILER_LOG_PATH, JUDGER_RUN_LOG_PATH,
                                    SERVER_LOG_PATH, RUN_USER_UID, RUN_GROUP_GID, COMPILER_USER_UID, COMPILER_GROUP_GID)
-from server4bigdata.exception_bigdata import TokenVerificationFailed, CompileError, JudgeRuntimeError, JudgeClientError,JudgeServerException
+from server4bigdata.exception_bigdata import TokenVerificationFailed, CompileError, JudgeRuntimeError, JudgeClientError,JudgeServerException,TimeLimitExceeded
 
 from server4bigdata.utils_bigdata import server_info, logger, token
 from server4bigdata.judge_bigdata import JudgeBigData
@@ -56,33 +56,37 @@ class InitSubmissionEnv(object):
                 raise JudgeClientError("failed to clean runtime dir")
 
 class JudgeServer:
-    # @classmethod
-    #     def ping(cls):
-    #         # data = server_info()
-    #         data["action"] = "pong"
-    #         return data
 
     @classmethod
-    def judgebigdata(cls,language_config,max_cpu_time,src,problem_id=None):
+    def judgebigdata(cls,language_config,max_cpu_time,src,test_case_id=None):
         compile_config = language_config.get("compile")
         run_config = language_config.get("run")
         submission_id = uuid.uuid4().hex
 
-        src_path = os.path.join(PROJECT_BASE, str(problem_id), 'src/main/java/com/hadoop/Main.java')
-        with open(src_path, "w", encoding="utf-8") as f:  # 重写Main.java文件，并把源代码src写入该文件
-            f.write(src)
-        problem_dir = os.path.join(PROJECT_BASE, str(problem_id))
-        os.chdir(problem_dir)
+        # src_path = os.path.join(PROJECT_BASE, str(problem_id), 'src/main/java/com/hadoop/Main.java')
+
+
+        # os.chdir(problem_dir)
 
         with InitSubmissionEnv(JUDGER_WORKSPACE_BASE, submission_id=str(submission_id),init_test_case_dir=False) as dirs:
             submission_dir,_ = dirs
+            os.chdir(submission_dir)
+            problem_dir = os.path.join(PROJECT_BASE, str(test_case_id))
+            os.system('cp -r {} ./'.format(problem_dir))
+            src_path = os.path.join(submission_dir, str(test_case_id), 'src/main/java/com/hadoop/Main.java')
+            with open(src_path, "w", encoding="utf-8") as f:  # 重写Main.java文件，并把源代码src写入该文件
+                f.write(src)
+
+            project_dir = os.path.join(submission_dir,str(test_case_id))
+            os.chdir(project_dir)
+
             compile_log = os.path.join(submission_dir,'compile.log')
             compile_info,err = Compiler().compilebigdata(compile_config,compile_log)
-            jar_dir = os.path.join(problem_dir,'target','problem' + str(problem_id) + '.jar')
+            jar_dir = os.path.join(project_dir,'target','problem.jar')
             if os.path.exists(jar_dir):
-                test_case_dir = os.path.join(TEST_CASE_DIR,str(problem_id))
+                test_case_dir = os.path.join(TEST_CASE_DIR,str(test_case_id))
                 judgebigdata = JudgeBigData(run_config=run_config,
-                                            problem_id=problem_id,
+                                            problem_id=test_case_id,
                                             submission_dir=submission_dir,
                                             test_case_dir=test_case_dir,
                                             max_cpu_time=max_cpu_time)
@@ -91,6 +95,7 @@ class JudgeServer:
             else:
                 raise CompileError(compile_info)
         raise JudgeServerException('JudgeServer error')
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=["POST"])
@@ -104,8 +109,9 @@ def server(path):
                 data = request.json
             except Exception:
                 data = {}
+            # print('data =',data)
             ret = {'err':None,'data':getattr(JudgeServer,path)(**data)}
-        except (CompileError, TokenVerificationFailed, JudgeRuntimeError, JudgeClientError) as e:
+        except (CompileError, TokenVerificationFailed, JudgeRuntimeError, JudgeClientError,TimeLimitExceeded) as e:
             logger.exception(e)
             ret = {'err':e.__class__.__name__,'data':e.message}
         except Exception as e:

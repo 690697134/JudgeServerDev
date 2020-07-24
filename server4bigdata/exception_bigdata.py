@@ -30,3 +30,6 @@ class JudgeBigDataError(JudgeServerException):
 
 class JudgeRuntimeError(JudgeServerException):
     pass
+
+class TimeLimitExceeded(JudgeServerException):
+    pass

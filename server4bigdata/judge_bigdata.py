@@ -8,7 +8,7 @@ from multiprocessing import Pool
 import psutil
 
 from server4bigdata.config_bigdata import PROJECT_BASE
-from server4bigdata.exception_bigdata import JudgeBigDataError,JudgeRuntimeError
+from server4bigdata.exception_bigdata import JudgeBigDataError,JudgeRuntimeError,TimeLimitExceeded
 
 WA = 1
 AC = 0
@@ -63,17 +63,19 @@ class JudgeBigData(object):
         out_dir = 'file://' + out_dir
 
         main_class = 'com.hadoop.Main'
-        jar_name = 'problem' + str(self._problem_id) + '.jar'
+        jar_name = 'problem.jar'
 
-        jar_path = os.path.join(PROJECT_BASE,str(self._problem_id),'target')
+        jar_path = os.path.join(self._submission_dir,str(self._problem_id),'target')
 
         out_log = os.path.join(self._submission_dir,'out' + str(test_case_file_id) + '.log')
+        # print('out_log =',out_log)
         os.chdir(jar_path)
         cmd = self._run_config['command'].format(jar_path=jar_name,
                                                  main_class=main_class,
                                                  input_path=input_path,
                                                  out_path=out_dir,
                                                  out_log=out_log)
+
         try:
             p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,universal_newlines=True)
             out, err = p.communicate(timeout=self._max_cpu_time)
@@ -105,9 +107,9 @@ class JudgeBigData(object):
 
         for tup in result:
             if tup[0] == RUNTIME_ERROR:
-                raise JudgeRuntimeError(tup[1])
+                raise JudgeRuntimeError(str(tup[1]))
             elif tup[0] == TIME_LIMITED:
-                raise tup[1]
+                raise TimeLimitExceeded("Time out in " + str(self._max_cpu_time) + 's')
             elif tup[0] == WA:
                 return 'WA'
         return 'AC'

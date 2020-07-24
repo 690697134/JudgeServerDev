@@ -37,7 +37,7 @@ class JudgeServerClient(object):
         return self._request(self.server_base_url + '/judgebigdata',data=data)
 
 if __name__ == '__main__':
-    token = 'mrhanice'
+    token = 'judge_server_token'
     client = JudgeServerClient(token=token, server_base_url="http://127.0.0.1:10010")
     src = '''package com.hadoop;
 
@@ -132,6 +132,6 @@ public class Main {
     client.judge(src=src,
                  language_config=hadoop_config,
                  max_cpu_time=60,
-                 problem_id=0)
+                 problem_id=1002)
     # client.judge(src,languages.hadoop_config,0)
 

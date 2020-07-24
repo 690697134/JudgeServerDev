@@ -1,10 +1,13 @@
 #coding=utf-8
 import hashlib
 import logging
-import os
+import os,sys
 import socket
 
 import psutil
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+sys.path.append(BASE_DIR)
 
 from server4bigdata.config_bigdata import SERVER_LOG_PATH
 from server4bigdata.exception_bigdata import JudgeClientError
