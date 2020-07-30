@@ -13,7 +13,7 @@ from flask import Flask, request, Response
 
 from server4bigdata.compiler_bigdata import Compiler
 from server4bigdata.config_bigdata import (PROJECT_BASE, JUDGER_WORKSPACE_BASE, TEST_CASE_DIR, LOG_BASE, COMPILER_LOG_PATH, JUDGER_RUN_LOG_PATH,
-                                   SERVER_LOG_PATH, RUN_USER_UID, RUN_GROUP_GID, COMPILER_USER_UID, COMPILER_GROUP_GID)
+                                   SERVER_LOG_PATH)
 from server4bigdata.exception_bigdata import TokenVerificationFailed, CompileError, JudgeRuntimeError, JudgeClientError,JudgeServerException,TimeLimitExceeded
 
 from server4bigdata.utils_bigdata import server_info, logger, token
@@ -40,7 +40,7 @@ class InitSubmissionEnv(object):
             os.mkdir(self.work_dir)  #创建工作目录
             if self.init_test_case_dir:
                 os.mkdir(self.test_case_dir)  #创建测试样例目录
-            os.chown(self.work_dir, COMPILER_USER_UID, RUN_GROUP_GID)  #修改文件的属主和属组
+            # os.chown(self.work_dir, COMPILER_USER_UID, RUN_GROUP_GID)  #修改文件的属主和属组
             os.chmod(self.work_dir, 0o711)   #dir权限711
         except Exception as e:
             logger.exception(e)
@@ -79,7 +79,7 @@ class JudgeServer:
 
             project_dir = os.path.join(submission_dir,str(test_case_id))
             os.chdir(project_dir)
-
+            # print('project_dir =',project_dir)
             compile_log = os.path.join(submission_dir,'compile.log')
             compile_info,err = Compiler().compilebigdata(compile_config,compile_log)
             jar_dir = os.path.join(project_dir,'target','problem.jar')

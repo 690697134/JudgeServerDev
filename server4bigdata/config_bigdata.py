@@ -15,11 +15,11 @@ JUDGER_RUN_LOG_PATH = os.path.join(LOG_BASE, "judger.log")
 SERVER_LOG_PATH = os.path.join(LOG_BASE, "judge_server.log")
 
 #获取用户id和用户组id
-RUN_USER_UID = pwd.getpwnam("code").pw_uid
-RUN_GROUP_GID = grp.getgrnam("code").gr_gid
-
-#获取用户id和用户组id
-COMPILER_USER_UID = pwd.getpwnam("compiler").pw_uid
-COMPILER_GROUP_GID = grp.getgrnam("compiler").gr_gid
+# RUN_USER_UID = pwd.getpwnam("code").pw_uid
+# RUN_GROUP_GID = grp.getgrnam("code").gr_gid
+#
+# #获取用户id和用户组id
+# COMPILER_USER_UID = pwd.getpwnam("compiler").pw_uid
+# COMPILER_GROUP_GID = grp.getgrnam("compiler").gr_gid
 
 

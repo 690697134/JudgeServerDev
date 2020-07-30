@@ -61,12 +61,20 @@ class WcMapper extends Mapper<LongWritable, Text,Text, IntWritable> {
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        //拿到这一行数据
-        String line = value.toString();
-        String[] words = line.split(" ");
+        StringBuffer stringBuffer = new StringBuffer(value.toString());
+        for(int i = 0; i < stringBuffer.length(); i++ ) {
+            if(!Character.isLetter(stringBuffer.charAt(i))) {
+                stringBuffer.setCharAt(i,' ');
+            }
+        }
+        String[] words = stringBuffer.toString().split(" ");
+
         for(String word: words) {
+            if(word.trim().isEmpty()) {
+                continue;
+            }
             this.word.set(word);
-            context.write(this.word,one);
+            context.write(this.word,this.one);
         }
     }
 }

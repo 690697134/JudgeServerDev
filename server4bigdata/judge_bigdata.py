@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import subprocess
+import time
 
 from multiprocessing import Pool
 import psutil
@@ -77,22 +78,25 @@ class JudgeBigData(object):
                                                  out_log=out_log)
 
         try:
+            t_beginning = time.time()
             p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,universal_newlines=True)
             out, err = p.communicate(timeout=self._max_cpu_time)
+
         except (subprocess.TimeoutExpired) as e:
             p.terminate()
-            return (TIME_LIMITED,e)
+            return (TIME_LIMITED,e,self._max_cpu_time)
         except Exception as e:
             # print("exception runtime_error")
-            return (RUNTIME_ERROR,err)
+            return (RUNTIME_ERROR,err,0)
 
         code = self._compare(test_case_file_id,os.path.join(self._submission_dir,str(test_case_file_id) + '.out'))
+        totol_time = time.time() - t_beginning
 
         if code == RUNTIME_ERROR:
             # print('compare runtime_error')
-            return (RUNTIME_ERROR,err)
+            return (RUNTIME_ERROR,err,0)
         else:
-            return (code,None)
+            return (code,None,totol_time)
 
 
     def run(self):
@@ -111,8 +115,8 @@ class JudgeBigData(object):
             elif tup[0] == TIME_LIMITED:
                 raise TimeLimitExceeded("Time out in " + str(self._max_cpu_time) + 's')
             elif tup[0] == WA:
-                return 'WA'
-        return 'AC'
+                return {'judge_status':'WA','cpu_cost_time':tup[2]}
+        return {'judge_status':'AC','cpu_cost_time':tup[2]}
 
     def __getstate__(self):
         # http://stackoverflow.com/questions/25382455/python-notimplementederror-pool-objects-cannot-be-passed-between-processes
