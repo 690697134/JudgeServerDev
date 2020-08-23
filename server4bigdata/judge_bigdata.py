@@ -17,8 +17,16 @@ TIME_LIMITED = -2
 RUNTIME_ERROR = -1
 
 
-def _run(instance, test_case_file_id):
-    return instance._judge_one(test_case_file_id)
+def _run(instance,language_config, test_case_file_id):
+    # switch = {
+    #     "hadoop": instance._judge_one_hadoop(test_case_file_id),
+    #     "spark": instance._judge_one_spark(test_case_file_id)
+    # }
+    if language_config['name'] == 'hadoop':
+        return instance._judge_one_hadoop(test_case_file_id)
+    elif language_config['name'] == 'spark':
+        return instance._judge_one_spark(test_case_file_id)
+    # return switch.get(language_config['name'])
 
 class JudgeBigData(object):
     def __init__(self,run_config,problem_id,submission_dir,test_case_dir,max_cpu_time):
@@ -44,19 +52,20 @@ class JudgeBigData(object):
 
         num_reduce_task = self._test_case_info['numReduceTask']
         for part_id in range(num_reduce_task):
-            out_path = os.path.join(user_output_dir, 'part-r-' + '{:05d}'.format(part_id))
+            out_path = os.path.join(user_output_dir, str(part_id))
 
             if os.path.exists(out_path):
                 with open(out_path) as f:
                     content = f.read()
                     item_info = hashlib.md5(content.encode('utf-8').rstrip()).hexdigest()
+                    print("item_info = ",item_info,"md5 = ",stripped_output_md5_list[part_id],"part_id = ",part_id)
                     if item_info != stripped_output_md5_list[part_id]:
                         return WA
             else:
                 return RUNTIME_ERROR
         return AC
 
-    def _judge_one(self,test_case_file_id):
+    def _judge_one_hadoop(self,test_case_file_id):
         input_path = os.path.join(self._test_case_dir,str(test_case_file_id) + '.in')
         input_path = 'file://' + input_path
 
@@ -89,6 +98,7 @@ class JudgeBigData(object):
             # print("exception runtime_error")
             return (RUNTIME_ERROR,err,0)
 
+
         code = self._compare(test_case_file_id,os.path.join(self._submission_dir,str(test_case_file_id) + '.out'))
         totol_time = time.time() - t_beginning
 
@@ -98,12 +108,59 @@ class JudgeBigData(object):
         else:
             return (code,None,totol_time)
 
+    def _judge_one_spark(self,test_case_file_id):
+        input_path = os.path.join(self._test_case_dir,str(test_case_file_id) + '.in')
+        input_path = 'file://' + input_path
 
-    def run(self):
+        out_dir = os.path.join(self._submission_dir,str(test_case_file_id) + '.out')
+        out_dir = 'file://' + out_dir
+
+        main_class = 'Main'
+        jar_name = 'problem.jar'
+
+        jar_path = os.path.join(self._submission_dir,str(self._problem_id),'target',jar_name)
+
+        out_log = os.path.join(self._submission_dir,'out' + str(test_case_file_id) + '.log')
+
+        os.chdir("/home/hadoop/spark-2.4.6-bin-hadoop2.7")
+        cmd = self._run_config['command'].format(main_class=main_class,
+                                                 master='yarn',
+                                                 jar_path=jar_path,
+                                                 input_path=input_path,
+                                                 out_path=out_dir,
+                                                 out_log=out_log)
+        try:
+            t_beginning = time.time()
+            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,universal_newlines=True)
+            out, err = p.communicate(timeout=self._max_cpu_time)
+
+        except (subprocess.TimeoutExpired) as e:
+            p.terminate()
+            return (TIME_LIMITED,e,self._max_cpu_time)
+        except Exception as e:
+            print("exception runtime_error")
+            return (RUNTIME_ERROR,err,0)
+
+        num_reduce_task = self._test_case_info['numReduceTask']
+        for part_id in range(num_reduce_task):
+            part_out_file = os.path.join(self._submission_dir, str(test_case_file_id) + '.out', "part-" + '{:05d}'.format(part_id))
+            des = os.path.join(self._submission_dir, str(test_case_file_id) + '.out', str(part_id))
+            os.system("mv {src} {des}".format(src=part_out_file,des = des))
+
+        code = self._compare(test_case_file_id,os.path.join(self._submission_dir,str(test_case_file_id) + '.out'))
+        totol_time = time.time() - t_beginning
+
+        if code == RUNTIME_ERROR:
+            # print('compare runtime_error')
+            return (RUNTIME_ERROR,err,0)
+        else:
+            return (code,None,totol_time)
+
+    def run(self,language_config):
         tmp_result = []
         result = []
         for test_case_file_id, _ in self._test_case_info["test_cases"].items():
-            tmp_result.append(self._pool.apply_async(_run, (self, test_case_file_id)))
+            tmp_result.append(self._pool.apply_async(_run, (self,language_config,test_case_file_id)))
         self._pool.close()
         self._pool.join()
         for item in tmp_result:

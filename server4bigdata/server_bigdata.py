@@ -73,13 +73,18 @@ class JudgeServer:
             os.chdir(submission_dir)
             problem_dir = os.path.join(PROJECT_BASE, str(test_case_id))
             os.system('cp -r {} ./'.format(problem_dir))
-            src_path = os.path.join(submission_dir, str(test_case_id), 'src/main/java/com/hadoop/Main.java')
+
+            switch = {
+                "hadoop": 'src/main/java/com/hadoop/Main.java',
+                "spark": "src/main/scala/Main.scala",
+            }
+            src_path = os.path.join(submission_dir, str(test_case_id), switch.get(language_config["name"]))
             with open(src_path, "w", encoding="utf-8") as f:  # 重写Main.java文件，并把源代码src写入该文件
                 f.write(src)
 
             project_dir = os.path.join(submission_dir,str(test_case_id))
             os.chdir(project_dir)
-            # print('project_dir =',project_dir)
+
             compile_log = os.path.join(submission_dir,'compile.log')
             compile_info,err = Compiler().compilebigdata(compile_config,compile_log)
             jar_dir = os.path.join(project_dir,'target','problem.jar')
@@ -90,7 +95,7 @@ class JudgeServer:
                                             submission_dir=submission_dir,
                                             test_case_dir=test_case_dir,
                                             max_cpu_time=max_cpu_time)
-                result = judgebigdata.run()
+                result = judgebigdata.run(language_config)
                 return result
             else:
                 raise CompileError(compile_info)
@@ -109,7 +114,7 @@ def server(path):
                 data = request.json
             except Exception:
                 data = {}
-            # print('data =',data)
+            print('data =',data)
             ret = {'err':None,'data':getattr(JudgeServer,path)(**data)}
         except (CompileError, TokenVerificationFailed, JudgeRuntimeError, JudgeClientError,TimeLimitExceeded) as e:
             logger.exception(e)
