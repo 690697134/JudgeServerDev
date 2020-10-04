@@ -7,7 +7,7 @@ class OutInfo(object):
         self._problem_dir = problem_dir
         self._num_reduce_task = num_reduce_task
     def generate_info(self):
-        info = {'numReduceTask':self._num_reduce_task}
+        info = {'partitions':self._num_reduce_task}
         info['test_cases'] = {}
         case_id = 1
         while True:

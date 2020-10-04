@@ -9,12 +9,12 @@ import psutil
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 sys.path.append(BASE_DIR)
 
-from server4bigdata.config_bigdata import SERVER_LOG_PATH
-from server4bigdata.exception_bigdata import JudgeClientError
+from config_bigdata import SERVER_LOG_PATH
+from exception_bigdata import JudgeClientError
 
 #工具类文件
 logger = logging.getLogger(__name__)
-handler = logging.FileHandler(SERVER_LOG_PATH)
+handler = logging.FileHandler("/OJ/log/judge_server.log")
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)

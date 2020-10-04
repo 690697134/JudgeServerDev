@@ -3,7 +3,6 @@ import hashlib
 import json
 import os
 import requests
-from client.Python import languages
 
 #JudgeServerClientError
 class JudgeServerClientError(Exception):
@@ -27,19 +26,19 @@ class JudgeServerClient(object):
     def ping(self):
         return self._request(self.server_base_url + '/ping')
 
-    def judge(self,src,language_config,max_cpu_time,problem_id=0):
+    def judge(self,src,language_config,max_cpu_time,test_case_id=0):
         data = {
             'language_config':language_config,
             'src':src,
             'max_cpu_time':max_cpu_time,
-            'problem_id':problem_id,
+            'test_case_id':test_case_id,
         }
         return self._request(self.server_base_url + '/judgebigdata',data=data)
 
 if __name__ == '__main__':
-    token = 'judge_server_token'
-    client = JudgeServerClient(token=token, server_base_url="http://127.0.0.1:10010")
-    src = '''package com.hadoop;
+    token = 'OJ4BigData'
+    client = JudgeServerClient(token=token, server_base_url="http://127.0.0.1:8090")
+    src = '''
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -111,16 +110,12 @@ public class Main {
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
 
-        job.setNumReduceTasks(3);
         job.setOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
 
         //(5)设置输入输出数据
         FileInputFormat.setInputPaths(job,new Path(args[0]));
         FileOutputFormat.setOutputPath(job,new Path(args[1]));
-        
-        //int numa = 10;
-        //int nmmb = 10/0;
         
         //(6) 提交我们的job
         boolean b = job.waitForCompletion(true);
@@ -140,6 +135,6 @@ public class Main {
     client.judge(src=src,
                  language_config=hadoop_config,
                  max_cpu_time=60,
-                 problem_id=1002)
+                 test_case_id=1001)
     # client.judge(src,languages.hadoop_config,0)
 

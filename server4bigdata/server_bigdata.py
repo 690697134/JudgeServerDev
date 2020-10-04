@@ -11,13 +11,13 @@ sys.path.append(BASE_DIR)
 
 from flask import Flask, request, Response
 
-from server4bigdata.compiler_bigdata import Compiler
-from server4bigdata.config_bigdata import (PROJECT_BASE, JUDGER_WORKSPACE_BASE, TEST_CASE_DIR, LOG_BASE, COMPILER_LOG_PATH, JUDGER_RUN_LOG_PATH,
+from compiler_bigdata import Compiler
+from config_bigdata import (PROJECT_BASE, JUDGER_WORKSPACE_BASE, TEST_CASE_DIR, LOG_BASE, COMPILER_LOG_PATH, JUDGER_RUN_LOG_PATH,
                                    SERVER_LOG_PATH)
-from server4bigdata.exception_bigdata import TokenVerificationFailed, CompileError, JudgeRuntimeError, JudgeClientError,JudgeServerException,TimeLimitExceeded
+from exception_bigdata import TokenVerificationFailed, CompileError, JudgeRuntimeError, JudgeClientError,JudgeServerException,TimeLimitExceeded
 
-from server4bigdata.utils_bigdata import server_info, logger, token
-from server4bigdata.judge_bigdata import JudgeBigData
+from utils_bigdata import server_info, logger, token
+from judge_bigdatabk import JudgeBigData
 
 app = Flask(__name__)
 # DEBUG = os.environ.get("judger_debug") == "1"
@@ -75,10 +75,19 @@ class JudgeServer:
             os.system('cp -r {} ./'.format(problem_dir))
 
             switch = {
-                "hadoop": 'src/main/java/com/hadoop/Main.java',
-                "spark": "src/main/scala/Main.scala",
+                "hadoop": 'src/main/java/Main.java',
+                "spark-Scala": "src/main/java/Main.scala",
+                "spark-Java": "src/main/java/Main.java",
+                "flink-Scala": "src/main/java/Main.scala",
+                "flink-Java": "src/main/java/Main.java",
             }
             src_path = os.path.join(submission_dir, str(test_case_id), switch.get(language_config["name"]))
+            old_java = os.path.join(submission_dir, str(test_case_id),"src/main/java/Main.java")
+            old_scala = os.path.join(submission_dir, str(test_case_id),"src/main/java/Main.scala")
+            if os.path.exists(old_java):
+                os.remove(old_java)
+            if os.path.exists(old_scala):
+                os.remove(old_scala)
             with open(src_path, "w", encoding="utf-8") as f:  # 重写Main.java文件，并把源代码src写入该文件
                 f.write(src)
 
@@ -107,6 +116,7 @@ class JudgeServer:
 def server(path):
     if path in ('judge','ping','compile_spj','judgebigdata'):
         _token = request.headers.get('X-Judge-Server-Token')
+        # print("client_token=", _token, "server_token=", token)
         try:
             if _token != token:
                 raise TokenVerificationFailed("invalid token")
@@ -114,7 +124,7 @@ def server(path):
                 data = request.json
             except Exception:
                 data = {}
-            print('data =',data)
+            # print('data =',data)
             ret = {'err':None,'data':getattr(JudgeServer,path)(**data)}
         except (CompileError, TokenVerificationFailed, JudgeRuntimeError, JudgeClientError,TimeLimitExceeded) as e:
             logger.exception(e)
@@ -127,6 +137,6 @@ def server(path):
     print(ret)
     return Response(json.dumps(ret),mimetype='application/json')
 
-
+# gunicorn -w 4 -b 0.0.0.0:8080 --worker-class eventlet --time 120 server_bigdata:app
 if __name__ == '__main__':
-    app.run(debug=DEBUG,port=10010)
+    app.run(debug=DEBUG,port=8090)

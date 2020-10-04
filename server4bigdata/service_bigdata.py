@@ -6,8 +6,8 @@ import requests
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 sys.path.append(BASE_DIR)
 
-from server4bigdata.exception_bigdata import JudgeServiceError
-from server4bigdata.utils_bigdata import server_info, logger, token
+from exception_bigdata import JudgeServiceError
+from utils_bigdata import server_info, logger, token
 
 #SERVICE_URL=http://judge-server:8080
 #BACKEND_URL=http://oj-backend:8000/api/judge_server_heartbeat/
