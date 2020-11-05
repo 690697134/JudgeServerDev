@@ -149,14 +149,14 @@ public class Main {
     _flink_config_Java = {
         "name": "flink-Java",
         "compile": {
-            "compile_command": "mvn clean package -e | tee {compile_log}"
+            "compile_command": "/usr/local/apache-maven-3.5.3/bin/mvn clean package -e | tee {compile_log}"
         },
         "run": {
-            "command": "/usr/local/flink-1.10.2/bin/flink run -c {main_class}  {jar_path} {input_path} {out_path} | tee {out_log}",
+            "command": "/usr/local/flink-1.10.2/bin/flink run -m {cluster} -c {main_class} -yqu {queue_name} {jar_path} {input_path} {out_path} >> {out_log} 2>&1",
         }
     }
     client.judge(src=src,
                  language_config=_flink_config_Java,
-                 max_cpu_time=80,
+                 max_cpu_time=300,
                  test_case_id=3001)
 

@@ -1,0 +1,828 @@
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_hadoop.py", line 22, in _request
+    return requests.post(url,**kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_hadoop.py", line 142, in <module>
+    test_case_id=1001)
+  File "client_hadoop.py", line 36, in judge
+    return self._request(self.server_base_url + '/judgebigdata',data=data)
+  File "client_hadoop.py", line 24, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_hadoop.py", line 22, in _request
+    return requests.post(url,**kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_hadoop.py", line 142, in <module>
+    test_case_id=1001)
+  File "client_hadoop.py", line 36, in judge
+    return self._request(self.server_base_url + '/judgebigdata',data=data)
+  File "client_hadoop.py", line 24, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_hadoop.py", line 22, in _request
+    return requests.post(url,**kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_hadoop.py", line 142, in <module>
+    test_case_id=1001)
+  File "client_hadoop.py", line 36, in judge
+    return self._request(self.server_base_url + '/judgebigdata',data=data)
+  File "client_hadoop.py", line 24, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/util/retry.py", line 367, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/packages/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/urllib3/connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.6/http/client.py", line 1373, in getresponse
+    response.begin()
+  File "/usr/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.6/http/client.py", line 280, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 27, in _request
+    return requests.post(url, **kwargs).json()
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/mrhanice/.virtualenvs/OJ4BigData/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "client_spark.py", line 87, in <module>
+    test_case_id=2001)
+  File "client_spark.py", line 41, in judge
+    return self._request(self.server_base_url + '/judgebigdata', data=data)
+  File "client_spark.py", line 29, in _request
+    raise JudgeServerClientError(str(e))
+__main__.JudgeServerClientError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))

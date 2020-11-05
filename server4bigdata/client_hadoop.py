@@ -39,8 +39,8 @@ if __name__ == '__main__':
     token = 'OJ4BigData'
     client = JudgeServerClient(token=token, server_base_url="http://127.0.0.1:8090")
     src = '''
-
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -50,7 +50,8 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.log4j.Logger;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
 
@@ -78,48 +79,50 @@ class WcMapper extends Mapper<LongWritable, Text,Text, IntWritable> {
     }
 }
 
-class WcReducer extends Reducer<Text, IntWritable,Text, IntWritable> {
-    private IntWritable totol = new IntWritable();
+class WcReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
+    private IntWritable total = new IntWritable();
 
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
         int sum = 0;
-        for(IntWritable value: values) {
-            sum += value.get();
+        for(IntWritable v : values) {
+            sum += v.get();
         }
-        totol.set(sum);
-        context.write(key,totol);
+        this.total.set(sum);
+        context.write(key,total);
     }
 }
+public class Main extends Configured implements Tool {
 
-public class Main {
+    @Override
+    public int run(String[] strings) throws Exception {
+        //int a = 1;
+        //int c = a / 0;
+        Configuration conf = this.getConf();
+        Job job = Job.getInstance(conf,"wordcount");
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-
-        Configuration conf =new Configuration();
-        //String[] otherArgs =new GenericOptionsParser(conf, args).getRemainingArgs();
-
-        //(1) 获取一个job实例
-        Job job = Job.getInstance(conf);
-        //(2) 设置我们的类路径(ClassPath)
         job.setJarByClass(Main.class);
-        //(3) 设置Mapper和Reducer
         job.setMapperClass(WcMapper.class);
         job.setReducerClass(WcReducer.class);
-        //(4) 设置Mapper和Reducer输出类型
+
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
 
-        job.setOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
-
-        //(5)设置输入输出数据
-        FileInputFormat.setInputPaths(job,new Path(args[0]));
-        FileOutputFormat.setOutputPath(job,new Path(args[1]));
+        job.setCombinerClass(WcReducer.class);
         
-        //(6) 提交我们的job
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        FileInputFormat.setInputPaths(job,new Path(strings[0]));
+        FileOutputFormat.setOutputPath(job,new Path(strings[1]));
+
         boolean b = job.waitForCompletion(true);
-        System.exit(b ? 0 : 1);
+        return b ? 0 : 1;
+    }
+
+    public static void main(String[] args) throws Exception {
+        int res = ToolRunner.run(new Configuration(),new Main(),args);
+        System.exit(res);
     }
 }'''
 
@@ -129,12 +132,13 @@ public class Main {
             "compile_command": "mvn clean package -e | tee {compile_log}"
         },
         "run": {
-            "command": "hadoop jar {jar_path} {main_class} {input_path} {out_path} | tee {out_log}",
+            # "command": "hadoop jar {jar_path} -D mapreduce.job.queuename={queue_name} {main_class} {input_path} {out_path} | tee {out_log}",
+            "command": "hadoop jar {jar_path} {main_class} -Dmapred.job.queue.name={queue_name} {input_path} {out_path} >> {out_log} 2>&1",
         }
     }
     client.judge(src=src,
                  language_config=hadoop_config,
-                 max_cpu_time=60,
+                 max_cpu_time=300,
                  test_case_id=1001)
     # client.judge(src,languages.hadoop_config,0)
 

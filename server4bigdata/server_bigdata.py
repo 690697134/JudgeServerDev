@@ -5,7 +5,9 @@ import os
 import sys
 import shutil
 import uuid
-
+import time
+import subprocess
+from multiprocessing import Process,Manager,Queue
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 sys.path.append(BASE_DIR)
 
@@ -17,7 +19,7 @@ from config_bigdata import (PROJECT_BASE, JUDGER_WORKSPACE_BASE, TEST_CASE_DIR, 
 from exception_bigdata import TokenVerificationFailed, CompileError, JudgeRuntimeError, JudgeClientError,JudgeServerException,TimeLimitExceeded
 
 from utils_bigdata import server_info, logger, token
-from judge_bigdatabk import JudgeBigData
+from judge_bigdatabk import JudgeBigData,AppInfo
 
 app = Flask(__name__)
 # DEBUG = os.environ.get("judger_debug") == "1"
@@ -55,18 +57,57 @@ class InitSubmissionEnv(object):
                 logger.exception(e)
                 raise JudgeClientError("failed to clean runtime dir")
 
-class JudgeServer:
+class JudgeServer(object):
+    cnt :int = -1
+    spark_UI_port = 0
+    q :Queue = None
+
+    def __init__(self,q):
+        JudgeServer.q = q
+
+    def kill_timeout_app(self,appDict):
+        cmd = 'yarn application -kill {appId}'
+        killed_appIds = []
+        for appId,appInfo in appDict.items():
+            t_now = time.time()
+            t_running = t_now - appInfo.create_time
+            if t_running >= appInfo.timeout + 5:
+                # print("t_now = %d t_create = %d t_running = %d" % (t_now,appInfo.create_time,t_running))
+                try:
+                    kill_cmd = cmd.format(appId=appId)
+                    p = subprocess.Popen(kill_cmd,shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE,universal_newlines=True)
+                    out,err = p.communicate(timeout=30)
+                    killed_appIds.append(appId)
+                except (subprocess.TimeoutExpired) as e:
+                    p.kill()
+                except Exception as e:
+                    logger.exception(e)
+
+        for killed_appId in killed_appIds:
+            appDict.pop(killed_appId)
+
+    def deal_appId(self,q):
+        appDict = {}
+        cnt = 0
+        while True:
+            # print(appDict)
+            self.kill_timeout_app(appDict)
+            while q.empty() != True:
+                appinfo = q.get(True)
+                appDict[appinfo.appId] = appinfo
+                cnt += 1
+            time.sleep(5)
+            # print("cnt = ",cnt)
+
+    def create_dealappID_process(self):
+        p = Process(target=self.deal_appId,args=(JudgeServer.q,))
+        p.start()
 
     @classmethod
     def judgebigdata(cls,language_config,max_cpu_time,src,test_case_id=None):
         compile_config = language_config.get("compile")
         run_config = language_config.get("run")
         submission_id = uuid.uuid4().hex
-
-        # src_path = os.path.join(PROJECT_BASE, str(problem_id), 'src/main/java/com/hadoop/Main.java')
-
-
-        # os.chdir(problem_dir)
 
         with InitSubmissionEnv(JUDGER_WORKSPACE_BASE, submission_id=str(submission_id),init_test_case_dir=False) as dirs:
             submission_dir,_ = dirs
@@ -104,7 +145,13 @@ class JudgeServer:
                                             submission_dir=submission_dir,
                                             test_case_dir=test_case_dir,
                                             max_cpu_time=max_cpu_time)
-                result = judgebigdata.run(language_config)
+                cls.cnt = cls.cnt + 1
+                with open(os.path.join(test_case_dir, "info")) as f:
+                    test_case_info = json.load(f)
+                    test_case_group_num = len(test_case_info['test_cases'])
+
+                cls.spark_UI_port += test_case_group_num
+                result = judgebigdata.run(language_config,cls.cnt % 2,cls.q,cls.spark_UI_port)
                 return result
             else:
                 raise CompileError(compile_info)
@@ -139,4 +186,8 @@ def server(path):
 
 # gunicorn -w 4 -b 0.0.0.0:8080 --worker-class eventlet --time 120 server_bigdata:app
 if __name__ == '__main__':
-    app.run(debug=DEBUG,port=8090)
+    manager = Manager()
+    q = manager.Queue()
+    js = JudgeServer(q)
+    js.create_dealappID_process()
+    app.run(debug=False, port=8090,use_reloader=False)
