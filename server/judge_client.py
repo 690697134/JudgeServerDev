@@ -121,7 +121,7 @@ class JudgeClient(object):
         command = self._run_config["command"].format(exe_path=self._exe_path, exe_dir=os.path.dirname(self._exe_path),
                                                      max_memory=int(self._max_memory / 1024)).split(" ")
         env = ["PATH=" + os.environ.get("PATH", "")] + self._run_config.get("env", [])
-
+queue_name
         seccomp_rule = self._run_config["seccomp_rule"]
         if isinstance(seccomp_rule, dict):
             seccomp_rule = seccomp_rule[self._io_mode["io_mode"]]

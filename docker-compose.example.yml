@@ -1,4 +1,4 @@
-version: "3"
+version: "3"i
 services:
     judge_server:
         image: registry.cn-hangzhou.aliyuncs.com/onlinejudge/judge_server

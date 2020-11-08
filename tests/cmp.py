@@ -20,3 +20,4 @@ def cmp_file(f1, f2):
 
 if __name__ == '__main__':
     print(cmp_file('/OJ/test_case/0/2.out/part-r-00000', '/OJ/test_case/0/3.out/part-r-00000'))
+

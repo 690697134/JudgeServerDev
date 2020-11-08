@@ -23,5 +23,5 @@ cd /code
 core=$(grep --count ^processor /proc/cpuinfo)
 n=$(($core*2))
 #exec gunicorn --workers $n --threads $n  --error-logfile /OJ/log/gunicorn.log --time 600 --bind 0.0.0.0:8080 server_bigdata:app --log-level=debug --reload
-gunicorn --workers $n --threads $n --error-logfile /OJ/log/gunicorn.log --log-level debug --time 300 --bind 0.0.0.0:8080 server_bigdata:app --reload
+gunicorn --workers $n --threads $n --error-logfile /OJ/log/gunicorn.log --log-level debug --time 300 --bind 0.0.0.0:8080 server_bigdata:app
 #python3 server_bigdata.py

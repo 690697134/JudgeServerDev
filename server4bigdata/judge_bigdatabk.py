@@ -92,7 +92,7 @@ class JudgeBigData(object):
             os.kill(pid.pid, sig)
 
     def _add_appID(self,out_log, type, create_time, timeout, q):
-        print("ready to add_appID")
+        # print("ready to add_appID")
         cnt = 0
         t_begin = time.time()
         while (time.time() - t_begin) < timeout:
@@ -105,9 +105,9 @@ class JudgeBigData(object):
                     for id, word in enumerate(word_list):
                         if word == 'application' and id + 1 < len(word_list) and word_list[id+1].startswith('application'):
                             appID = word_list[id + 1]
-                            print("find app id")
+                            # print("find app id")
                             q.put(AppInfo(appID, type, create_time, timeout))
-                            print("appID = ", appID)
+                            # print("appID = ", appID)
                             return
             cnt += 1
         print("180s passed can't find appId %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -211,7 +211,7 @@ class JudgeBigData(object):
 
             out, err = p.communicate(timeout=com_time)
             code = p.poll()
-            print('code = ',code)
+            # print('code = ',code)
             # print("cost time = ",time.time() - t_beginning)
         except (subprocess.TimeoutExpired) as e:
             # print("time limited")

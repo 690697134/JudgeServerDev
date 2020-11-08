@@ -151,7 +151,7 @@ class JudgeServer(object):
                     test_case_group_num = len(test_case_info['test_cases'])
 
                 cls.spark_UI_port += test_case_group_num
-                result = judgebigdata.run(language_config,cls.cnt % 2,cls.q,cls.spark_UI_port)
+                result = judgebigdata.run(language_config,cls.cnt % 8,cls.q,cls.spark_UI_port)
                 return result
             else:
                 raise CompileError(compile_info)
